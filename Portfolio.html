@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yokesh Madan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --bg: #ffffff;
+    --bg-alt: #f6f7f9;
+    --surface: #ffffff;
+    --border: #e4e7eb;
+    --text: #16181d;
+    --text-mute: #5b6470;
+    --accent: #4f6df5;
+    --accent-soft: #eef1fe;
+    --shadow: 0 1px 2px rgba(16,20,30,0.04), 0 8px 24px rgba(16,20,30,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1014;
+      --bg-alt: #14171d;
+      --surface: #181b22;
+      --border: #272b34;
+      --text: #eceef1;
+      --text-mute: #9298a3;
+      --accent: #7c93ff;
+      --accent-soft: #1c2540;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1014;
+    --bg-alt: #14171d;
+    --surface: #181b22;
+    --border: #272b34;
+    --text: #eceef1;
+    --text-mute: #9298a3;
+    --accent: #7c93ff;
+    --accent-soft: #1c2540;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(76px + env(safe-area-inset-top, 0px)); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .2s ease, color .2s ease;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { font-weight: 700; font-size: 1.05rem; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-size: 0.94rem; }
+  .nav-links a { text-decoration: none; color: var(--text-mute); font-weight: 500; }
+  .nav-links a:hover { color: var(--text); }
+  .theme-toggle {
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; color: var(--text);
+  }
+  .theme-toggle:hover { background: var(--bg-alt); }
+  @media (max-width: 560px) { .nav-links a:not(.theme-toggle) { display: none; } }
+
+  /* hero */
+  .hero { padding: 96px 0 72px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 800; line-height: 1.15; margin: 0 0 18px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p { color: var(--text-mute); font-size: 1.08rem; max-width: 56ch; margin: 0 0 32px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 0.94rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.92; }
+  .btn-outline { border-color: var(--border); background: var(--surface); color: var(--text); }
+  .btn-outline:hover { background: var(--bg-alt); }
+
+  section { padding: 64px 0; border-top: 1px solid var(--border); }
+  .section-title { font-size: 1.5rem; font-weight: 700; margin: 0 0 32px; }
+
+  /* skills */
+  .skill-cat { margin-bottom: 26px; }
+  .skill-cat:last-child { margin-bottom: 0; }
+  .skill-cat h3 { font-size: 0.88rem; font-weight: 600; color: var(--text-mute); margin: 0 0 12px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    padding: 7px 14px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 0.88rem; font-weight: 600;
+  }
+
+  /* project card */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 1.3rem; font-weight: 700; margin: 0 0 6px; }
+  .card .dates { font-size: 0.85rem; color: var(--text-mute); margin-bottom: 16px; }
+  .card p.desc { color: var(--text-mute); margin: 0 0 20px; max-width: 60ch; }
+  .tech-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .tech-tag {
+    font-size: 0.8rem; font-weight: 600; padding: 5px 11px;
+    border-radius: 999px; border: 1px solid var(--border); color: var(--text-mute);
+  }
+  .card-links { display: flex; gap: 12px; }
+  .card-links a {
+    font-size: 0.88rem; font-weight: 600; text-decoration: none;
+    padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .card-links a:hover { background: var(--bg-alt); }
+  .card-links a.disabled { opacity: 0.5; cursor: default; pointer-events: none; }
+
+  .metrics-row2 {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin: 24px 0 8px;
+  }
+  @media (max-width: 560px) { .metrics-row2 { grid-template-columns: repeat(2, 1fr); } }
+  .metric2 { background: var(--bg-alt); padding: 16px 14px; }
+  .metric2 .val2 { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+  .metric2 .lbl2 { font-size: 0.76rem; color: var(--text-mute); margin-top: 3px; }
+
+  .detail-block { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
+  .detail-block h4 { font-size: 1rem; font-weight: 700; margin: 0 0 12px; }
+  .pipeline-list { margin: 0; padding-left: 20px; color: var(--text-mute); }
+  .pipeline-list li { margin-bottom: 10px; line-height: 1.55; }
+  .pipeline-list li:last-child { margin-bottom: 0; }
+  .pipeline-list strong { color: var(--text); font-weight: 600; }
+  .note-p { color: var(--text-mute); margin: 0; max-width: 64ch; }
+
+  /* about */
+  .about p { color: var(--text-mute); max-width: 62ch; margin: 0 0 16px; }
+  .about ul { color: var(--text-mute); padding-left: 20px; margin: 0; }
+  .about li { margin-bottom: 6px; }
+
+  .edu-block { margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--border); }
+  .edu-block h3 { font-size: 0.88rem; font-weight: 600; color: var(--text-mute); margin: 0 0 16px; }
+  .edu-item { padding: 14px 0; border-top: 1px solid var(--border); }
+  .edu-item:first-of-type { border-top: none; padding-top: 0; }
+  .edu-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+  .edu-degree { font-weight: 600; color: var(--text); font-size: 0.98rem; }
+  .edu-years { font-size: 0.82rem; color: var(--text-mute); white-space: nowrap; }
+  .edu-school { font-size: 0.92rem; color: var(--text-mute); margin-top: 3px; }
+  .edu-detail { font-size: 0.86rem; color: var(--text-mute); margin-top: 3px; }
+
+  /* contact */
+  .contact-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border: 1px solid var(--border); border-radius: 12px;
+    background: var(--surface); text-decoration: none; color: var(--text);
+    font-size: 0.94rem; font-weight: 500; flex: 1 1 220px;
+  }
+  .contact-item:hover { border-color: var(--accent); }
+
+  footer { padding: 32px 0 calc(32px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--border); }
+  footer .inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.85rem; color: var(--text-mute); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap inner">
+    <div class="logo">Yokeshmadan Mathivanan</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Hi, I'm Yokeshmadan Mathivanan.<br>A <span class="accent">Computer Science Engineer</span> building full-stack applications and deep learning models.</h1>
+    <p>I graduated in Computer Science Engineering and work across full-stack web development and applied machine learning — most recently an end-to-end CNN system for brain tumor detection.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#" download>Download Resume</a>
+      <a class="btn btn-outline" href="https://linkedin.com/in/yokeshmadan-mathivanan-a3048b34a" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-outline" href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <h2 class="section-title">About</h2>
+    <p>Computer Science Engineering graduate from Sathyabama Institute of Science and Technology, Chennai, with hands-on experience across full-stack web development, Python, machine learning, deep learning, and SQL-based data analysis.</p>
+    <ul>
+      <li>Built and validated a full deep-learning pipeline — preprocessing, EDA, model development, evaluation, and automated reporting</li>
+      <li>Comfortable across the stack: React and Node.js on the front and back end, TensorFlow/Keras/OpenCV for ML</li>
+      <li>Interested in full-stack development, system analysis, and UI/UX design alongside ML</li>
+    </ul>
+
+    <div class="edu-block">
+      <h3>Education</h3>
+      <div class="edu-item">
+        <div class="edu-top">
+          <span class="edu-degree">B.E., Computer Science Engineering</span>
+          <span class="edu-years">2022 – 2026</span>
+        </div>
+        <div class="edu-school">Sathyabama Institute of Science and Technology, Chennai</div>
+        <div class="edu-detail">CGPA: 7.2 · Status: Completed</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-top">
+          <span class="edu-degree">Higher Secondary Education (12th, State Board)</span>
+          <span class="edu-years">2021 – 2022</span>
+        </div>
+        <div class="edu-school">Sri Vijay Vidhalaya Matric Hr. Sec. School, Tirupattur</div>
+        <div class="edu-detail">Percentage: 82.34%</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-top">
+          <span class="edu-degree">Secondary Education (10th, State Board)</span>
+          <span class="edu-years">2019 – 2020</span>
+        </div>
+        <div class="edu-school">Sri Vijay Vidhalaya Matric Hr. Sec. School, Tirupattur</div>
+        <div class="edu-detail">Percentage: 93.4%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2 class="section-title">Skills</h2>
+    <div class="skill-cat">
+      <h3>Web Dev</h3>
+      <div class="pill-row">
+        <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3>AI / Data</h3>
+      <div class="pill-row">
+        <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">TensorFlow</span><span class="pill">Keras</span><span class="pill">OpenCV</span><span class="pill">NumPy</span><span class="pill">Matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3>Tools</h3>
+      <div class="pill-row">
+        <span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">Jupyter</span><span class="pill">MATLAB</span><span class="pill">AWS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2 class="section-title">Projects</h2>
+    <div class="card">
+      <h3>Brain Tumor Detection using CNN</h3>
+      <div class="dates">Jan 2026 – Apr 2026 · Co-developed with Yogarajan N</div>
+      <p class="desc">A full diagnostic pipeline that takes a raw MRI scan and returns a tumor type, an estimated size, a severity stage, and a set of personalized care recommendations — not just a classification label. Built around a custom CNN paired with fuzzy-logic segmentation to handle the blurry, gradient-heavy boundaries that make tumor margins hard to pin down with simple thresholding.</p>
+
+      <div class="tech-row">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">TensorFlow / Keras</span>
+        <span class="tech-tag">OpenCV</span>
+        <span class="tech-tag">Fuzzy Logic</span>
+        <span class="tech-tag">Gradio</span>
+      </div>
+
+      <div class="metrics-row2">
+        <div class="metric2"><div class="val2">98%</div><div class="lbl2">Test accuracy</div></div>
+        <div class="metric2"><div class="val2">10,000+</div><div class="lbl2">MRI scans used</div></div>
+        <div class="metric2"><div class="val2">4</div><div class="lbl2">Classes detected</div></div>
+        <div class="metric2"><div class="val2">120ms</div><div class="lbl2">CPU inference</div></div>
+      </div>
+
+      <div class="detail-block">
+        <h4>How it works</h4>
+        <ol class="pipeline-list">
+          <li><strong>Preprocessing.</strong> Scans are resized to 150×150 and pixel intensities normalized to 0–1, so the model isn't reacting to differences in brightness or contrast between scanners.</li>
+          <li><strong>Fuzzy segmentation.</strong> Instead of drawing a hard line between tumor and healthy tissue, a fuzzy-thresholding step assigns each pixel a membership value — a much better fit for MRI, where tumor edges blend gradually into surrounding tissue rather than stopping cleanly.</li>
+          <li><strong>Tumor sizing &amp; staging.</strong> The segmented region is measured as a percentage of total brain area and automatically staged as small, medium, or large — giving a reproducible severity signal instead of a visual guess.</li>
+          <li><strong>CNN classification.</strong> A custom 4-block convolutional network (Conv2D → MaxPooling, with Batch Normalization and Dropout) classifies the scan as glioma, meningioma, pituitary tumor, or no tumor.</li>
+          <li><strong>Automated clinical report.</strong> The system generates a structured report — tumor type, size, stage — along with personalized diet, activity, and follow-up-frequency guidance tailored to the diagnosis.</li>
+          <li><strong>Deployment.</strong> Wrapped in a Gradio interface: upload a scan, get a full diagnostic dashboard back in real time, no ML background required to use it.</li>
+        </ol>
+      </div>
+
+      <div class="detail-block">
+        <h4>Why it holds up</h4>
+        <p class="note-p">Benchmarked against VGG16 and InceptionV3 — both strong general-purpose architectures that tend to overfit on smaller, specialized medical datasets — the custom CNN came out ahead on accuracy, inference speed, and its ability to pick up the subtle intensity-based cues that separate tumor types. The bigger differentiator, though, isn't the accuracy number: most baseline classifiers stop at a label, while this system turns that label into a full report a patient can actually act on.</p>
+      </div>
+
+      <div class="card-links">
+        <a href="#" class="disabled">View Code</a>
+        <a href="https://huggingface.co/spaces/yogarajan23/brain-tumor-detection" target="_blank" rel="noopener">Live Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-row">
+      <a class="contact-item" href="mailto:yokeshmadanmathivanan@gmail.com">✉️ yokeshmadanmathivanan@gmail.com</a>
+      <a class="contact-item" href="https://linkedin.com/in/yokeshmadan-mathivanan-a3048b34a" target="_blank" rel="noopener">🔗 LinkedIn</a>
+      <a class="contact-item" href="#" target="_blank" rel="noopener">💻 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <span>© Yokeshmadan Mathivanan</span>
+    <span>Chennai, Tamil Nadu, India</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function systemPrefersDark() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    function apply(theme) {
+      if (theme) root.setAttribute('data-theme', theme);
+      else root.removeAttribute('data-theme');
+      btn.textContent = (theme === 'dark' || (!theme && systemPrefersDark())) ? '☀️' : '🌙';
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    apply(saved);
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') || (systemPrefersDark() ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+
+</body>
+</html>
